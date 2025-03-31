@@ -56,8 +56,8 @@ export default function TodoList() {
   return (
     <Box
       sx={{
-        m: "64px auto",
-        width: 600,
+        m: "64px 24px",
+        width: "auto",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
