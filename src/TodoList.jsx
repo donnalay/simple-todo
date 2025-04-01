@@ -91,12 +91,15 @@ export default function TodoList() {
       <Box
         style={{
           display: "flex",
-          flexDirection: !todos.length ? "column" : "row",
+          flexDirection: "column",
+          alignItems: !incompleteCount ? "center" : null,
+          justifyContent: !incompleteCount ? "center" : null,
           gap: 4,
           backgroundColor: !incompleteCount
             ? "rgba(233, 237, 201, 1)"
             : "rgba(233, 237, 201, 0)",
           padding: !incompleteCount ? "32px" : "0",
+          transition: "300ms ease-in-out",
           borderRadius: "8px",
           margin: "0 auto",
           width: "100%",
