@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TodoListForm from "./TodoListForm";
 import TodoListItem from "./TodoListItem";
+import EmptySleep from "./EmptySleep";
 import { v4 as uuidv4 } from "uuid";
 
 const getInitialTodos = () => {
@@ -87,22 +88,27 @@ export default function TodoList() {
         </Box>
       </Box>
       <TodoListForm add={addTodo} />
-
-      <p
+      <Box
         style={{
+          display: "flex",
+          flexDirection: !todos.length ? "column" : "row",
+          gap: 4,
           backgroundColor: !incompleteCount
             ? "rgba(233, 237, 201, 1)"
             : "rgba(233, 237, 201, 0)",
-          padding: !incompleteCount ? "16px" : "0",
+          padding: !incompleteCount ? "32px" : "0",
           borderRadius: "8px",
-          margin: 0,
+          margin: "0 auto",
+          width: "100%",
         }}
       >
-        {!incompleteCount
-          ? "No Todos on your list! What will you do today?"
-          : `You have ${incompleteCount} Todos`}
-      </p>
-
+        {!incompleteCount && <EmptySleep />}
+        <p>
+          {!incompleteCount
+            ? "No Todos on your list! What will you do today?"
+            : `You have ${incompleteCount} Todos`}
+        </p>
+      </Box>
       {todos.map((item) => {
         return (
           <TodoListItem
