@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
+import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
+
 import TodoListForm from "./TodoListForm";
 import TodoListItem from "./TodoListItem";
 import EmptySleep from "./EmptySleep";
-import { v4 as uuidv4 } from "uuid";
 
 const getInitialTodos = () => {
   const initialTodos = JSON.parse(localStorage.getItem("Todos"));
@@ -52,12 +57,61 @@ export default function TodoList() {
     setTodos([]);
   };
 
+  //reset all
+  const reset = () => {
+    setTodos((prev) => {
+      return prev.map((e) => {
+        return { ...e, done: false };
+      });
+    });
+  };
+
   const incompleteCount = todos.filter((todo) => !todo.done).length;
+
+  const btnStyles = { height: "max-content", textTransform: "none", gap: 0.5 };
+
+  const disabledResetBtn = (
+    <Button
+      sx={btnStyles}
+      variant="outlined"
+      size="small"
+      onClick={reset}
+      disabled
+    >
+      <RemoveDoneIcon />
+      Mark all: Not done
+    </Button>
+  );
+  const resetBtn = (
+    <Button sx={btnStyles} variant="outlined" size="small" onClick={reset}>
+      <RemoveDoneIcon />
+      Mark all: Not done
+    </Button>
+  );
+
+  const disabledRemoveBtn = (
+    <Button
+      sx={btnStyles}
+      variant="outlined"
+      size="small"
+      onClick={clear}
+      disabled
+    >
+      <PlaylistRemoveIcon />
+      Remove all
+    </Button>
+  );
+  const removeBtn = (
+    <Button sx={btnStyles} variant="outlined" size="small" onClick={clear}>
+      <PlaylistRemoveIcon />
+      Remove all
+    </Button>
+  );
 
   return (
     <Box
       sx={{
-        m: "64px 24px",
+        m: "32px 16px",
         width: "auto",
         display: "flex",
         flexDirection: "column",
@@ -66,27 +120,7 @@ export default function TodoList() {
         gap: 2,
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        <Box
-          sx={{
-            m: 0,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
-          <h1 style={{ margin: 0, lineHeight: 0 }}>Todos</h1>
-          <Button
-            sx={{ height: "max-content" }}
-            variant="outlined"
-            size="small"
-            onClick={clear}
-          >
-            Clear all
-          </Button>
-        </Box>
-      </Box>
+      <h1 style={{ m: 0, lineHeight: 0.5 }}>Todos</h1>
       <TodoListForm add={addTodo} />
       <Box
         style={{
@@ -106,11 +140,20 @@ export default function TodoList() {
         }}
       >
         {!incompleteCount && <EmptySleep />}
-        <p>
+        <p style={{ margin: "0.5rem 0", padding: 0 }}>
           {!incompleteCount
             ? "No Todos on your list! What will you do today?"
             : `You have ${incompleteCount} Todos`}
         </p>
+
+        {!todos.length ? null : (
+          <Box
+            sx={{ display: "flex", gap: 1, justifyContent: "space-between" }}
+          >
+            {todos.some((todo) => todo.done) ? resetBtn : disabledResetBtn}
+            {!todos.length ? disabledRemoveBtn : removeBtn}
+          </Box>
+        )}
       </Box>
       {todos.map((item) => {
         return (
