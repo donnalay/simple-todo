@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+
+//crypto.randomUUID() can also generate random unique IDs
 import { v4 as uuidv4 } from "uuid";
 
 import Box from "@mui/material/Box";
@@ -11,6 +13,7 @@ import TodoListForm from "./TodoListForm";
 import TodoListItem from "./TodoListItem";
 import EmptySleep from "./EmptySleep";
 
+//if there is data in local storage, return it, if not, return empty array
 const getInitialTodos = () => {
   const initialTodos = JSON.parse(localStorage.getItem("Todos"));
   return !initialTodos ? [] : initialTodos;
@@ -29,6 +32,7 @@ export default function TodoList() {
   const addTodo = (newTodo) => {
     setTodos((prev) => {
       return [...prev, { id: uuidv4(), text: newTodo, done: false }];
+      //can also use: id: crypto.randomUUID()
     });
   };
 

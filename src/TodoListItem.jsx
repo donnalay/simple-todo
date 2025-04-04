@@ -4,7 +4,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import CloseIcon from "@mui/icons-material/Close";
 import Tooltip from "@mui/material/Tooltip";
 import Stamp from "./Stamp";
 import Box from "@mui/material/Box";
@@ -39,7 +39,7 @@ export default function TodoListItem({ todo, update, remove }) {
           }}
         >
           <IconButton edge="end" aria-label="Remove" onClick={removeTodo}>
-            <RemoveCircleOutlineIcon />
+            <CloseIcon />
           </IconButton>
         </Tooltip>
       }
