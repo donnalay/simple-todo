@@ -98,12 +98,12 @@ export default function TodoListItem({ todo, update, remove }) {
         />
         <Box
           style={{
-            height: !todo.done ? "0" : "auto",
+            height: !todo.done ? "0" : "56px",
             opacity: !todo.done ? 0 : 1,
-            transformOrigin: !todo.done ? "100% 0%" : "20% 40%",
+            transformOrigin: !todo.done ? "100% 0%" : "50% 40%",
             transition: !todo.done
               ? "600ms"
-              : "325ms cubic-bezier(0, 0.64, 1, 0.33)",
+              : "325ms cubic-bezier(0, 0.64, 1, 0.80)",
             transform: !todo.done
               ? "rotate(0deg) scale(0)"
               : "rotate(15deg) scale(1)",
