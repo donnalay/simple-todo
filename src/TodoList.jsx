@@ -72,7 +72,13 @@ export default function TodoList() {
 
   const incompleteCount = todos.filter((todo) => !todo.done).length;
 
-  const btnStyles = { height: "max-content", textTransform: "none", gap: 0.5 };
+  const btnStyles = {
+    height: "max-content",
+    textTransform: "none",
+    gap: 1,
+    textWrap: "balance",
+    textAlign: "left",
+  };
 
   const disabledResetBtn = (
     <Button
@@ -144,21 +150,25 @@ export default function TodoList() {
         }}
       >
         {!incompleteCount && <EmptySleep />}
-        <p style={{ margin: "0.5rem 0", padding: 0 }}>
+        <p
+          style={{
+            margin: "0.5rem 0",
+            padding: 0,
+            textAlign: "center",
+            textWrap: "balance",
+          }}
+        >
           {!incompleteCount
             ? "No Todos on your list! What will you do today?"
             : `You have ${incompleteCount} Todos`}
         </p>
-
-        {!todos.length ? null : (
-          <Box
-            sx={{ display: "flex", gap: 1, justifyContent: "space-between" }}
-          >
-            {todos.some((todo) => todo.done) ? resetBtn : disabledResetBtn}
-            {!todos.length ? disabledRemoveBtn : removeBtn}
-          </Box>
-        )}
       </Box>
+      {!todos.length ? null : (
+        <Box sx={{ display: "flex", gap: 1, justifyContent: "space-between" }}>
+          {todos.some((todo) => todo.done) ? resetBtn : disabledResetBtn}
+          {!todos.length ? disabledRemoveBtn : removeBtn}
+        </Box>
+      )}
       {todos.map((item) => {
         return (
           <TodoListItem

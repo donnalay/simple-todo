@@ -99,6 +99,7 @@ export default function TodoListItem({ todo, update, remove }) {
         <Box
           style={{
             height: !todo.done ? "0" : "56px",
+            width: !todo.done ? "0" : "56px",
             opacity: !todo.done ? 0 : 1,
             transformOrigin: !todo.done ? "100% 0%" : "50% 40%",
             transition: !todo.done
